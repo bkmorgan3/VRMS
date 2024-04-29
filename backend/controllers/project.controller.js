@@ -4,7 +4,7 @@ const ProjectController = {};
 
 ProjectController.project_list = async function (req, res) {
   const { query } = req;
-
+  
   try {
     const projects = await Project.find(query);
     return res.status(200).send(projects);
@@ -12,6 +12,16 @@ ProjectController.project_list = async function (req, res) {
     return res.sendStatus(400);
   }
 };
+
+ProjectController.projects = async function(req, res) {
+  try {
+    const projectList = await Project.find({})
+    const projects = projectList.filter(proj => req.body.includes(proj._id.toString()))
+    return res.status(200).send(projects)
+  } catch(e) {
+    console.error(e)
+  }
+}
 
 ProjectController.create = async function (req, res) {
   const { body } = req;

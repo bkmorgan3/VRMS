@@ -14,8 +14,7 @@ class ProjectApiService {
       const res = await fetch(this.baseProjectUrl, {
         headers: this.headers,
       });
-      const data = await res.json();
-      return  data
+      return await res.json();
     } catch (error) {
       console.error(`fetchProjects error: ${error}`);
       alert('Server not responding.  Please refresh the page.');
@@ -85,17 +84,6 @@ class ProjectApiService {
     }
   }
 
-  async fetchProjectByID(projectID) {
-    
-    try {
-      const res = await fetch(`${this.baseProjectUrl}${projectID}`, {headers: this.headers})
-      const json = await res.json()
-      return json
-    } catch(err) {
-      console.error(err)
-    }
-  }
-
   async fetchPMProjects(projects) {
      const requestOptions = {
       headers: this.headers,
@@ -109,6 +97,7 @@ class ProjectApiService {
 
     } catch(e) {
       console.error(e)
+      return undefined
     }
   }
 }

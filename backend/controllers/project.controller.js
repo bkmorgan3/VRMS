@@ -19,7 +19,7 @@ ProjectController.projects = async function(req, res) {
     const projects = projectList.filter(proj => req.body.includes(proj._id.toString()))
     return res.status(200).send(projects)
   } catch(e) {
-    console.error(e)
+    return res.sendStatus(400)
   }
 }
 

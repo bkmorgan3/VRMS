@@ -51,7 +51,6 @@ export default function ProjectList() {
         }
         // if user is not admin, but is a project manager, only show projects they manage
         if(user?.accessLevel  !== 'admin' && user?.managedProjects.length > 0) {
-          //  projectData = await projectApiService.fetchProjectByID(user.managedProjects);
            projectData = await projectApiService.fetchPMProjects(user.managedProjects);
            setProject(projectData);
         }

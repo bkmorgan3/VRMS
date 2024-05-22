@@ -91,7 +91,7 @@ class ProjectApiService {
       body: JSON.stringify(projects),
     };
     try {
-    const res = await fetch(this.baseProjectUrl,requestOptions);
+      const res = await fetch(this.baseProjectUrl,requestOptions);
       const data = await res.json();
       return  data
 

@@ -31,10 +31,9 @@ const StyledTypography = styled(Typography)({
  */
 
 export default function ProjectList() {
-  const [project, setProject] = useState(null);
   const [projects, setProjects] = useState(null);
   const [projectApiService] = useState(new ProjectApiService());
-
+ 
   // destructuring auth from context object created by AuthContext.Provider
   const { auth } = useAuth();
   const user = auth?.user;
@@ -52,7 +51,8 @@ export default function ProjectList() {
         // if user is not admin, but is a project manager, only show projects they manage
         if(user?.accessLevel  !== 'admin' && user?.managedProjects.length > 0) {
            projectData = await projectApiService.fetchPMProjects(user.managedProjects);
-           setProject(projectData);
+           console.log(projectData)
+           setProjects(projectData);
         }
       }
       
@@ -67,7 +67,7 @@ export default function ProjectList() {
   }
 
   // Render loading circle until project data is served from API
-  if (!project && !projects)
+  if (!projects)
     return (
       <Box sx={{ textAlign: 'center', pt: 10 }}>
         <CircularProgress />
@@ -96,21 +96,7 @@ export default function ProjectList() {
       )}
 
       <TitledBox title="Active Projects" childrenBoxSx={{ p: 2 }}>
-         {user?.accessLevel !== 'admin' && project && project.map( p => (
-          <Box key={p._id} sx={{ mb: 0.35 }}>
-              <StyledTypography
-                component={Link}
-                to={`/projects/${p._id}`}
-              >
-                {p.name}
-              </StyledTypography>
-            </Box>
-         ))
-  
-}
-
-        
-            {user?.accessLevel === 'admin' && projects && projects.map((project) => (
+            { projects && projects.map((project) => (
             <Box key={project._id} sx={{ mb: 0.35 }}>
               <StyledTypography
                 component={Link}
@@ -120,7 +106,6 @@ export default function ProjectList() {
               </StyledTypography>
             </Box>
           ))}
-          
       </TitledBox>
     </Box>
   );

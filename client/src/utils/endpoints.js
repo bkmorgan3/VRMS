@@ -1,4 +1,4 @@
-import { REACT_APP_CUSTOM_REQUEST_HEADER } from "../utils/globalSettings";
+import { REACT_APP_CUSTOM_REQUEST_HEADER } from '../utils/globalSettings';
 
 export const HEADERS = {
   'Content-Type': 'application/json',
